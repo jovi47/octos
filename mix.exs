@@ -5,12 +5,16 @@ defmodule Octos.MixProject do
     [
       app: :octos,
       version: "0.1.0",
-      elixir: "~> 1.14",
+      elixir: "~> 1.18",
       elixirc_paths: elixirc_paths(Mix.env()),
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps()
+      deps: deps(),
+      dialyzer: [
+      plt_file: {:no_warn, "_dialyzer/dialyzer.plt"},
+      plt_add_deps: [:mix, :ex_unit, :ex_machina]
     ]
+  ]
   end
 
   # Configuration for the OTP application.
@@ -42,12 +46,21 @@ defmodule Octos.MixProject do
       {:finch, "~> 0.13"},
       {:telemetry_metrics, "~> 1.0"},
       {:telemetry_poller, "~> 1.0"},
-      {:gettext, "~> 0.26"},
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:bandit, "~> 1.5"},
       {:guardian, "~> 2.3"},
-      {:bcrypt_elixir, "~> 3.0"}
+      {:bcrypt_elixir, "~> 3.0"},
+
+      ## DEV
+      {:dialyxir, "~> 1.4.5", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.7.10", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.13", only: [:dev, :test], runtime: false},
+
+      ## TEST
+      {:hammox, "~> 0.7.0", only: [:dev, :test], runtime: false},
+      {:ex_machina, "~> 2.7.0", only: [:test, :dev], runtime: false},
+      {:faker, "~> 0.18.0", only: [:test, :dev]}
     ]
   end
 

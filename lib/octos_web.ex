@@ -30,7 +30,6 @@ defmodule OctosWeb do
     quote do
       use Phoenix.Controller, namespace: OctosWeb
       import Plug.Conn
-      import OctosWeb.Gettext
       alias OctosWeb.Router.Helpers, as: Routes
       alias Octos.Guardian
     end
